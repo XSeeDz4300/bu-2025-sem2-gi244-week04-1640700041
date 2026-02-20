@@ -2,56 +2,45 @@ using UnityEngine;
 
 public class WaveController : MonoBehaviour
 {
-    public Wave currentWave;
     public Transform[] spawnPoints;
 
-    private int enemySpawned = 0;
-    private float nextSpawnTime = 0;
+    private Wave currentWave;
+    private int enemiesSpawned = 0;
+    private float nextSpawnTime = 0f;
+
+    public bool IsComplete()
+    {
+        return enemiesSpawned >= currentWave?.enemyCount;
+    }
+
+    public void StartWave(Wave wave)
+    {
+        currentWave = wave;
+        enemiesSpawned = 0;
+        nextSpawnTime = Time.time;
+    }
 
     void Update()
     {
-        var t = Time.time;
-        if (t > nextSpawnTime && enemySpawned < currentWave.enemyCount)
+        if (currentWave == null) return;
+
+        if (enemiesSpawned < currentWave.enemyCount && Time.time >= nextSpawnTime)
         {
-            Spawn();
-            enemySpawned += 1;
+            SpawnEnemy();
+            enemiesSpawned++;
             nextSpawnTime = Time.time + currentWave.spawnInterval;
         }
     }
 
-    public void ChangeWave(Wave wave)
+    void SpawnEnemy()
     {
-        currentWave = wave;
-
-        enemySpawned = 0;
-        nextSpawnTime = Time.time;
-    }
-
-    public bool IsCompleted()
-    {
-        return enemySpawned >= currentWave.enemyCount;
-    }
-
-    void Spawn()
-    {
-        //animalIndex = Random.Range(0, animalPrefabs.Length);
-        //Vector3 spawnPos = new(
-        //    Random.Range(-spawnRangeX, spawnRangeX),
-        //    transform.position.y,
-        //    transform.position.z
-        //);
-        //Instantiate(
-        //    animalPrefabs[animalIndex],
-        //    spawnPos,
-        //    animalPrefabs[animalIndex].transform.rotation
-        //);
-
         int enemyIndex = Random.Range(0, currentWave.enemyPrefabs.Length);
-        int spawnPointIndex = Random.Range(0, spawnPoints.Length);
-        Instantiate(
+        int spawnIndex = Random.Range(0, spawnPoints.Length);
+
+        GameObject enemy = Instantiate(
             currentWave.enemyPrefabs[enemyIndex],
-            spawnPoints[spawnPointIndex].position,
-            currentWave.enemyPrefabs[enemyIndex].transform.rotation
+            spawnPoints[spawnIndex].position,
+            spawnPoints[spawnIndex].rotation
         );
     }
 }

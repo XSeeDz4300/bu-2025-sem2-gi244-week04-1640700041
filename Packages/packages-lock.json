@@ -5,7 +5,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "8d6b24086f9bc6ca6730513b5aca58662e48e152"
+      "hash": "a4660d9b7ad4a8e3fd2581c4003ebf79db033001"
     },
     "com.unity.collab-proxy": {
       "version": "2.10.2",
@@ -110,7 +110,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.timeline": {
-      "version": "1.8.10",
+      "version": "1.8.9",
       "depth": 0,
       "source": "registry",
       "dependencies": {

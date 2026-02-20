@@ -1,12 +1,11 @@
-using System;
+
 using UnityEngine;
 
-
-[Serializable]
+[System.Serializable]
 public class Wave
 {
-	public GameObject[] enemyPrefabs;
-	public int enemyCount;
-	public float spawnInterval = 1.5f;
-	public float waveInterval = 5f;
+    public GameObject[] enemyPrefabs;
+    public int enemyCount;
+    public float spawnInterval = 1.5f;
+    public float waveInterval = 5f;
 }
